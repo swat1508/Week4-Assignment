@@ -1,6 +1,6 @@
 
 export const state = {
-    // createRepo: [{
+    // create-repo: [{
     //     "id": "1",
     //     "command": "create repo repo-123",
     //     "data": {

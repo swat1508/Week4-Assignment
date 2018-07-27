@@ -16,7 +16,7 @@ module.exports = class DomOperations {
            if(statusCode==200){
             tablearea.appendChild(this.showViewRepoResults(myArray));                     
            }  //statusCode check ends
-        }  //operationType as createRepo ends 
+        }  //operationType as create-repo ends 
         
     }; //setResponseInWidget ends
 

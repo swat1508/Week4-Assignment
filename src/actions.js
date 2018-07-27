@@ -1,5 +1,5 @@
  const actions ={
- action_createRepo :       'createRepo' ,
+ action_createRepo :       'create-repo' ,
  action_viewIssues :        'viewIssues' ,
  action_addComment :        'addComment' ,
  action_viewLatestComment : 'viewLatestComment' ,

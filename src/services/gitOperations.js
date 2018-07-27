@@ -1,145 +1,34 @@
-
 const DomOperations = require('./../view/domOpeartions.js');
 const _domOp = new DomOperations();
-
 const reducer = require('./../reducer.js');
 import actionz from './../actions';
+import { globalVaribale } from './../reducer';
 
-
-////alert(actionz.action_createRepo);
-
-import {globalVaribale } from './../reducer';
-
-
-     export const processFetchApiWithPost = function(objData){ 
- // processFetchApiWithPost(objData){
+export const processFetchApi = function (objData) {
     debugger;
-     var authorizationToken  =  'token  b924ef22b93dfb1bddb456c722240869e360e6f5';
-  
-    var statusCode;
-    var myArray =  [];
-       fetch(objData.url, {
-               method: objData.method,
-               headers: {
-                   "Content-Type": "application/json; charset=utf-8",
-                   "Authorization": authorizationToken
-               },
-               body: JSON.stringify(objData.jsonData)
-           }
-       )
-   
-       .then((response) => {
-           debugger;
-           statusCode = response.status;
-           if (response.ok) {
-               return response.json();
-           } else {
-               debugger;                                   
-               _domOp.setResponseInWidget(objData.operation,myArray,statusCode);            
-           }
-       })
-       .then((jsonData) => {
-           myArray = jsonData;          //populate data   
-      //     _domOp.setResponseInWidget(objData.operation,myArray,statusCode);
-
-           if(objData.operation == "createRepo"){
-               reducer.store.dispatch({type: actionz.action_createRepo, payload:myArray });               
-           }else  if(objData.operation == "createIssue"){
-            reducer.store.dispatch({type: "createIssue", payload:myArray });               
-        }else  if(objData.operation == "closeIssue"){
-            reducer.store.dispatch({type: objData.operation, payload:myArray });               
-        }else  if(objData.operation == "addComment"){
-            reducer.store.dispatch({type: objData.operation, payload:myArray });               
-        }else  if(objData.operation == "addCollaborator"){
-            reducer.store.dispatch({type: objData.operation, payload:myArray });               
+    var statusCode = '';
+    var data = {
+        method: objData.method,
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": 'token  a858d61bf4e0c57421491a5297be2ac278e87dc8'
         }
+    }
+    if(objData.method !== 'GET') {
+        data.body = JSON.stringify(objData.jsonData)
+    }
+    fetch(objData.url, data).then((response) => {
+        statusCode = response.status;
+        alert("statusCode : " + statusCode);
 
-
-       })
-       .catch((err) => {
-           debugger;
-           console.log("Error:", err.message);
-       })   
-};
-
-// processFetchApiWithGet(objData){
-    export const processFetchApiWithGet = function(objData){ 
-    debugger;
-     var authorizationToken  =  'token  b924ef22b93dfb1bddb456c722240869e360e6f5';
-  
-    var statusCode;
-    var myArray =  [];
-       fetch(objData.url, {
-               method: objData.method,
-               headers: {
-                   "Content-Type": "application/json; charset=utf-8",
-                   "Authorization": authorizationToken
-               }
-              
-           }
-       )
-   
-       .then((response) => {
-           debugger;
-           statusCode = response.status;
-           if (response.ok) {
-               return response.json();
-           } else {
-               debugger;            
-               _domOp.setResponseInWidget(objData.operation,myArray,statusCode);          
-              // throw new Error('No response found');
-           }
-       })
-       .then((jsonData) => {
-           myArray = jsonData;
-           // _domOp.setResponseInWidget(objData.operation,myArray,statusCode);
-           if(objData.operation == "viewIssues"){
-            reducer.store.dispatch({type: "viewIssues", payload:myArray });               
-        }else if(objData.operation == "getLatestComment"){
-            reducer.store.dispatch({type: objData.operation , payload:myArray });               
+        if (response.ok) {
+            return response.json();
         }
-
-       })
-       .catch((err) => {
-           debugger;
-           console.log("Error:", err.message);
-       })   
+    }).then((jsonData) => {
+        var myArray = jsonData;          //populate data   
+        myArray.status = statusCode;
+        reducer.store.dispatch({ type: objData.operation, payload: myArray });     
+    }).catch((err) => {
+        console.log("Error:", err.message);
+    })
 };
-
-//}
-
-//module.exports = {processFetchApiWithPost, processFetchApiWithGet};
-
-/*
-const createRepo = function (repoName, repoDesc) {
-    console.log("called createRepo function");
-    const url = "https://api.github.com/user/repos";
-    const body = {
-        "name": repoName,
-        "description": repoDesc,
-        "homepage": "https://github.com",
-        "private": false,
-        "has_issues": true,
-        "has_wiki": true
-    };
-    return new Promise((resolve, reject) => {
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': 'token 4604d87b3c00a4f9bf3355197251cd66337c8d9b',
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(body)
-        }).then(response => response.json())
-          .then(data => resolve(data))
-          .catch(err => reject(err))
-          .catch(err => reject(err));
-            
-    });
-}
-
-const createIssue = 
-
-module.exports = {createRepo, createIssue, getRepo, addCollaborator};
-*/
-

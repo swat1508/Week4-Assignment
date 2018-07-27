@@ -5,7 +5,7 @@ import './../css/mystyles.css';
 //require('./handlerAndcontroller/eventListener.js');
 import { determineOperation } from './handlerAndcontroller/controller';
 //const reducer = require('./../reducer.js');
-//import {createRepoService } from './../services/createRepo_service';
+//import {create-repoService } from './../services/create-repo_service';
 import {render, store} from './reducer';
 import actionz from './actions';
 
@@ -49,8 +49,13 @@ $("#addCollaboratorOk").on('click', function(){
 
 window.onload=(function(){
     debugger;
-//alert("Page Refresh Event");
-render(true);
+    alert("page load");
+    if(!window.localStorage.getItem('currentState')){
+        alert("set currentState");
+        window.localStorage.setItem('currentState', JSON.stringify([]));                
+    }
+
+render();
 })();
 
 

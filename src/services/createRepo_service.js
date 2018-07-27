@@ -16,7 +16,7 @@
         objData.url = url;
         objData.method = "POST";
         objData.jsonData = newRepoJson;
-        objData.operation = "createRepo";
+        objData.operation = "create-repo";
 
         return objData;
     };

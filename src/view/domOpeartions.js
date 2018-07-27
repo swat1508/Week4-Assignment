@@ -4,16 +4,7 @@ module.exports = class DomOperations {
 
 
     clearAllWidgets() {
-        var mainDiv = document.getElementById("myWidget");
-        debugger;
-        if (mainDiv.hasChildNodes()) {
-            var numberOfChildNodes = mainDiv.childNodes.length;
-            for (let i = 1; i <= numberOfChildNodes; i++) {
-                var childNodeId = "widget_" + i;
-                var child = document.getElementById(childNodeId);
-                mainDiv.removeChild(child);
-            }
-        }
+        
     }
 
     createHTMLElement(html) {
@@ -294,12 +285,14 @@ module.exports = class DomOperations {
      return viewRepoData;
     };
 
-    setResponseInWidget(element,statusCode) {
+    setResponseInWidget(element) {
+        debugger;
         var operationType=element.type;
         var myArray=element.data; 
         var widgetId="widget_1";
         var buttonId="button_1";
-        var tablearea = document.getElementById('myWidget');   
+        var tablearea = document.getElementById('myWidget'); 
+        var statusCode = element.data.status;  
 
         if (tablearea.hasChildNodes()) {
             var newChildId = tablearea.childNodes.length + 1;
@@ -307,7 +300,7 @@ module.exports = class DomOperations {
             buttonId = "button_" + newChildId;
         }
 
-        if (operationType == "createRepo") {
+        if (operationType == "create-repo") {
             if (statusCode == 201) {         
                 
                 if(! tablearea.hasChildNodes()){
@@ -337,7 +330,7 @@ module.exports = class DomOperations {
             }
 
 
-        } //createRepo ends
+        } //create-repo ends
 
         else if (operationType == "createIssue") {
             if (statusCode == 201) {

@@ -27,7 +27,7 @@ module.exports = class DomOperations {
 
 
 
-        if (operationType == "createRepo") {
+        if (operationType == "create-repo") {
             if (statusCode == 201) {
 
                 var tablearea = document.getElementById('myWidget');
@@ -167,7 +167,7 @@ module.exports = class DomOperations {
             }
 
 
-        } //createRepo ends
+        } //create-repo ends
 
         else if (operationType == "createIssue") {
             if (statusCode == 201) {
